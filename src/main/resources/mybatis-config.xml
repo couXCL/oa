@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <settings>
+<!--        开启驼峰命名转换-->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+    <!--    default是指默认采用哪个environment环境来运行 -->
+    <environments default="dev">
+        <!--配置环境，不同环境不同id-->
+        <environment id="dev">
+            <!-- 采用JDBC方式对数据库事务进行commit/rollback-->
+            <transactionManager type="JDBC"></transactionManager>
+<!--            &lt;!&ndash; 采用mybatis自带连接池方式管理数据库连接&ndash;&gt;-->
+<!--            <dataSource type="POOLED">-->
+<!--            &lt;!&ndash; JDBC连接驱动，5.0版本的为com.mysql.jdbc.Driver-->
+<!--                             8.0版本的为com.mysql.cj.jdbc.Driver&ndash;&gt;-->
+<!--                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>-->
+<!--                <property name="url" value="jdbc:mysql://localhost:3306/xxx-oa?useSSL=false&amp;useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=Asia/Shanghai&amp;allowPublicKeyRetrieval=true"/>-->
+<!--                <property name="username" value="root"/>-->
+<!--                <property name="password" value="root"/>-->
+<!--            </dataSource>-->
+<!--            Mybatis与Druid的整合-->
+            <dataSource type="com.xxx.oa.datasource.DruidDataSourceFactory">
+                <!-- JDBC连接驱动，5.0版本的为com.mysql.jdbc.Driver
+                                 8.0版本的为com.mysql.cj.jdbc.Driver-->
+                <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/xxx-oa?useSSL=false&amp;useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=Asia/Shanghai&amp;allowPublicKeyRetrieval=true"/>
+                <property name="username" value="root"/>
+                <property name="password" value="root"/>
+<!--                初始的连接池数量为10-->
+                <property name="initialSize" value="10"/>
+<!--                最大的连接池数量为20-->
+                <property name="maxActive" value="20"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+        <mapper resource="mappers/test.xml"/>
+    </mappers>
+</configuration>
